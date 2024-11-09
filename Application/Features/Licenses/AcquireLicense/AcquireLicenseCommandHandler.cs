@@ -6,9 +6,9 @@ namespace Application.Features.Licenses.AcquireLicense;
 
 internal class AcquireLicenseCommandHandler : IRequestHandler<AcquireLicenseCommand, License>
 {
-    public async Task<License> Handle(AcquireLicenseCommand request, CancellationToken cancellationToken)
+    public Task<License> Handle(AcquireLicenseCommand request, CancellationToken cancellationToken)
     {
-        return await Task.Run(() => new License
+        return Task.Run(() => new License
         {
             Id = Guid.NewGuid(),
             AccountId = request.AccountId,

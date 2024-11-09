@@ -6,9 +6,9 @@ namespace Application.Features.Licenses.CancelLicense;
 
 internal class CancelLicenseCommandHandler : IRequestHandler<CancelLicenseCommand, License>
 {
-    public async Task<License> Handle(CancelLicenseCommand request, CancellationToken cancellationToken)
+    public Task<License> Handle(CancelLicenseCommand request, CancellationToken cancellationToken)
     {
-        return await Task.Run(() => new License
+        return Task.Run(() => new License
         {
             Id = request.LicenceId,
             AccountId = Guid.NewGuid(),

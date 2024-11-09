@@ -5,25 +5,25 @@ namespace Application.Features.Accounts.GetAccounts;
 
 internal class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, IEnumerable<Account>>
 {
-    public async Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
+    public Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
     {
-        return await Task.Run(() => new List<Account>
-        {
-            new()
+        return Task.Run<IEnumerable<Account>>(() =>
+        [
+            new Account
             {
                 Id = Guid.NewGuid(),
                 Name = "Account1"
             },
-            new()
+            new Account
             {
                 Id = Guid.NewGuid(),
                 Name = "Account2"
             },
-            new()
+            new Account
             {
                 Id = Guid.NewGuid(),
                 Name = "Account3"
             }
-        }, cancellationToken);
+        ], cancellationToken);
     }
 }

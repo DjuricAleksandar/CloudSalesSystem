@@ -6,11 +6,11 @@ namespace Application.Features.Services.CancelService;
 
 internal class CancelServiceCommandHandler : IRequestHandler<CancelServiceCommand, IEnumerable<License>>
 {
-    public async Task<IEnumerable<License>> Handle(CancelServiceCommand request, CancellationToken cancellationToken)
+    public Task<IEnumerable<License>> Handle(CancelServiceCommand request, CancellationToken cancellationToken)
     {
-        return await Task.Run(() => new List<License>
-        {
-            new()
+        return Task.Run<IEnumerable<License>>(() =>
+        [
+            new License
             {
                 Id = Guid.NewGuid(),
                 AccountId = Guid.NewGuid(),
@@ -18,7 +18,7 @@ internal class CancelServiceCommandHandler : IRequestHandler<CancelServiceComman
                 State = States.Canceled,
                 ValidTo = DateOnly.FromDayNumber(34)
             },
-            new()
+            new License
             {
                 Id = Guid.NewGuid(),
                 AccountId = Guid.NewGuid(),
@@ -26,7 +26,7 @@ internal class CancelServiceCommandHandler : IRequestHandler<CancelServiceComman
                 State = States.Canceled,
                 ValidTo = DateOnly.FromDayNumber(34)
             },
-            new()
+            new License
             {
                 Id = Guid.NewGuid(),
                 AccountId = Guid.NewGuid(),
@@ -34,6 +34,6 @@ internal class CancelServiceCommandHandler : IRequestHandler<CancelServiceComman
                 State = States.Canceled,
                 ValidTo = DateOnly.FromDayNumber(34)
             }
-        }, cancellationToken);
+        ], cancellationToken);
     }
 }
