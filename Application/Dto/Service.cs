@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Application.Dto;
 
-namespace Application.Dto
+public record Service
 {
-    public class Service
-    {
-        public Guid Id { get; set; }
-        public string? Name { get; set; }
-    }
+    public Guid Id { get; set; }
+    public string? Name { get; set; }
 }

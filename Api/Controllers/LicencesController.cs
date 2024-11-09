@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Application.Dto;
 using Application.Enums;
+using Application.Features.Licences.AcquireLicence;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -8,16 +9,9 @@ namespace Api.Controllers;
 public class LicencesController : BaseApiController
 {
     [HttpPost]
-    public async Task<IActionResult> Post([Required] Guid accountId, [Required] Guid serviceId)
+    public async Task<IActionResult> Post([Required] AcquireLicenceCommand acquireLicenceCommand)
     {
-        return Ok(await Task.Run(() => new Licence
-        {
-            Id = Guid.NewGuid(),
-            AccountId = accountId,
-            ServiceId = serviceId,
-            State = States.Active,
-            ValidTo = DateOnly.FromDayNumber(34)
-        }));
+        return Ok(await Mediator.Send(acquireLicenceCommand));
     }
 
     [HttpGet]

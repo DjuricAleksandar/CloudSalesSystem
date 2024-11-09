@@ -1,11 +1,11 @@
 ﻿using Application.Dto;
 using MediatR;
 
-namespace Application.Features.GetAccounts;
+namespace Application.Features.Accounts.GetAccounts;
 
-internal class GetAccountsHandler : IRequestHandler<GetAccounts, IEnumerable<Account>>
+internal class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, IEnumerable<Account>>
 {
-    public async Task<IEnumerable<Account>> Handle(GetAccounts request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
     {
         return await Task.Run(() => new List<Account>
         {
