@@ -6,7 +6,7 @@ public interface ICloudComputingProviderClient
 {
     Task<IEnumerable<Service>> GetAvailableServices();
 
-    Task<Guid> AcquireLicense(Guid serviceId);
+    Task<(Guid licenceId, DateOnly validTo)> AcquireLicense(Guid serviceId);
 
     Task CancelLicense(Guid licenseId);
 }

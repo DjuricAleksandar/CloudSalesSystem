@@ -1,20 +1,28 @@
 ﻿using Application.Dto;
-using Application.Enums;
+using AutoMapper;
+using Domain.Enums;
+using Domain.Interfaces;
+using Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Application.Features.Licenses.AcquireLicense;
 
-internal class AcquireLicenseCommandHandler : IRequestHandler<AcquireLicenseCommand, License>
+internal class AcquireLicenseCommandHandler(
+    ICloudComputingProviderClient cloudComputingProvider,
+    ILicensesRepository licensesRepository,
+    IMapper mapper) : IRequestHandler<AcquireLicenseCommand, License>
 {
-    public Task<License> Handle(AcquireLicenseCommand request, CancellationToken cancellationToken)
+    public async Task<License> Handle(AcquireLicenseCommand request, CancellationToken cancellationToken)
     {
-        return Task.Run(() => new License
+        var (licenceId, validTo) = await cloudComputingProvider.AcquireLicense(request.ServiceId);
+        var license = await licensesRepository.Add(new Domain.Entities.License
         {
-            Id = Guid.NewGuid(),
             AccountId = request.AccountId,
+            Id = licenceId,
             ServiceId = request.ServiceId,
-            State = States.Active,
-            ValidTo = DateOnly.FromDayNumber(34)
-        }, cancellationToken);
+            ValidTo = validTo,
+            State = States.Active
+        });
+        return mapper.Map<License>(license);
     }
 }

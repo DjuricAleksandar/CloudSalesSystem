@@ -41,10 +41,13 @@ internal class CloudComputingProviderClient : ICloudComputingProviderClient
         return Services;
     }
 
-    public async Task<Guid> AcquireLicense(Guid serviceId)
+    public async Task<(Guid licenceId, DateOnly validTo)> AcquireLicense(Guid serviceId)
     {
         await Task.Delay(1000);
-        return new Guid();
+        if (Services.All(s => s.Id != serviceId))
+            throw new InvalidOperationException("Service is not available.");
+
+        return (new Guid(), DateOnly.FromDateTime(DateTime.Now.AddYears(1)));
     }
 
     public async Task CancelLicense(Guid licenseId)

@@ -14,4 +14,11 @@ internal abstract class GenericRepository<T>(CloudSalesDbContext dbContext) : IG
     {
         return await DbContext.Set<T>().ToListAsync();
     }
+
+    public virtual async Task<T> Add(T entity)
+    {
+        await DbContext.Set<T>().AddAsync(entity);
+        await DbContext.SaveChangesAsync();
+        return entity;
+    }
 }
