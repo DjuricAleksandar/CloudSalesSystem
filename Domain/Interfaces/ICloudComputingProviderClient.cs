@@ -9,4 +9,6 @@ public interface ICloudComputingProviderClient
     Task<(Guid licenceId, DateOnly validTo)> AcquireLicense(Guid serviceId);
 
     Task CancelLicense(Guid licenseId);
+
+    Task ExtendLicense(Guid licenseId, DateOnly validTo);
 }

@@ -16,4 +16,12 @@ internal class LicensesRepository(CloudSalesDbContext cloudSalesDbContext)
         await DbContext.SaveChangesAsync();
         return license;
     }
+
+    public async Task<License> ExtendLicense(Guid licenseId, DateOnly validTo)
+    {
+        var license = await DbContext.Licenses.FirstAsync(l => l.Id == licenseId);
+        license.ValidTo = validTo;
+        await DbContext.SaveChangesAsync();
+        return license;
+    }
 }

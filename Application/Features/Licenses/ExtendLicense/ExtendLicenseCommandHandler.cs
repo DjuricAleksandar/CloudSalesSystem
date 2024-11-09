@@ -1,20 +1,20 @@
 ﻿using Application.Dto;
-using Application.Enums;
+using AutoMapper;
+using Domain.Interfaces;
+using Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Application.Features.Licenses.ExtendLicense;
 
-internal class ExtendLicenseCommandHandler : IRequestHandler<ExtendLicenseCommand, License>
+internal class ExtendLicenseCommandHandler(
+    ICloudComputingProviderClient cloudComputingProvider,
+    ILicensesRepository licensesRepository,
+    IMapper mapper) : IRequestHandler<ExtendLicenseCommand, License>
 {
-    public Task<License> Handle(ExtendLicenseCommand request, CancellationToken cancellationToken)
+    public async Task<License> Handle(ExtendLicenseCommand request, CancellationToken cancellationToken)
     {
-        return Task.Run(() => new License
-        {
-            Id = request.LicenceId,
-            AccountId = Guid.NewGuid(),
-            ServiceId = Guid.NewGuid(),
-            State = States.Active,
-            ValidTo = request.ValidTo
-        }, cancellationToken);
+        await cloudComputingProvider.ExtendLicense(request.LicenseId, request.ValidTo);
+        var license = await licensesRepository.ExtendLicense(request.LicenseId, request.ValidTo);
+        return mapper.Map<License>(license);
     }
 }

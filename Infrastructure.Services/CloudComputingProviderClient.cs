@@ -54,4 +54,9 @@ internal class CloudComputingProviderClient : ICloudComputingProviderClient
     {
         await Task.Delay(1000);
     }
+
+    public async Task ExtendLicense(Guid licenseId, DateOnly validTo)
+    {
+        await Task.Delay(1000);
+    }
 }
