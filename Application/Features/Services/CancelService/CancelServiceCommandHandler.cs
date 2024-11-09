@@ -1,39 +1,28 @@
 ﻿using Application.Dto;
-using Application.Enums;
+using AutoMapper;
+using Domain.Interfaces;
+using Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Application.Features.Services.CancelService;
 
-internal class CancelServiceCommandHandler : IRequestHandler<CancelServiceCommand, IEnumerable<License>>
+internal class CancelServiceCommandHandler(
+    ILicensesRepository licensesRepository,
+    ICloudComputingProviderClient cloudComputingProvider,
+    IMapper mapper) : IRequestHandler<CancelServiceCommand, IEnumerable<License>>
 {
-    public Task<IEnumerable<License>> Handle(CancelServiceCommand request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<License>> Handle(CancelServiceCommand request, CancellationToken cancellationToken)
     {
-        return Task.Run<IEnumerable<License>>(() =>
-        [
-            new License
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = request.ServiceId,
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            },
-            new License
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = request.ServiceId,
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            },
-            new License
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = request.ServiceId,
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            }
-        ], cancellationToken);
+        var allLicenses = await licensesRepository.GetAll();
+        var licensesToCancel = allLicenses.Where(l => l.ServiceId == request.ServiceId).ToList();
+        var result = new List<License>();
+        foreach (var license in licensesToCancel)
+        {
+            await cloudComputingProvider.CancelLicense(license.Id);
+            var canceledLicense = await licensesRepository.CancelLicense(license.Id);
+            result.Add(mapper.Map<License>(canceledLicense));
+        }
+
+        return result;
     }
 }
