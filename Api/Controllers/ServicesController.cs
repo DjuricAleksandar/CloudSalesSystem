@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Application.Dto;
-using Application.Enums;
+using Application.Features.Services.CancelService;
+using Application.Features.Services.GetServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -10,55 +10,12 @@ public class ServicesController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        return Ok(await Task.Run(() => new List<Service>
-        {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service1"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service2"
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service3"
-            }
-        }));
+        return Ok(await Mediator.Send(new GetServicesQuery()));
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Cancel([Required] Guid serviceId)
+    public async Task<IActionResult> Cancel([Required] CancelServiceCommand cancelServiceCommand)
     {
-        return Ok(await Task.Run(() => new List<License>
-        {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = Guid.NewGuid(),
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = Guid.NewGuid(),
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            },
-            new()
-            {
-                Id = Guid.NewGuid(),
-                AccountId = Guid.NewGuid(),
-                ServiceId = Guid.NewGuid(),
-                State = States.Canceled,
-                ValidTo = DateOnly.FromDayNumber(34)
-            }
-        }));
+        return Ok(await Mediator.Send(cancelServiceCommand));
     }
 }
