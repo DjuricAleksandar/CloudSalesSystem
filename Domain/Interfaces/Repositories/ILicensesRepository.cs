@@ -2,4 +2,7 @@
 
 namespace Domain.Interfaces.Repositories;
 
-public interface ILicensesRepository : IGenericRepository<License>;
+public interface ILicensesRepository : IGenericRepository<License>
+{
+    Task<License> CancelLicense(Guid licenseId);
+}
