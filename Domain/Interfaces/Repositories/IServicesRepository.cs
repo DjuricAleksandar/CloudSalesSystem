@@ -2,6 +2,4 @@
 
 namespace Domain.Interfaces.Repositories;
 
-public interface IServicesRepository : IGenericRepository<Service>
-{
-}
+public interface IServicesRepository : IGenericRepository<Service>;

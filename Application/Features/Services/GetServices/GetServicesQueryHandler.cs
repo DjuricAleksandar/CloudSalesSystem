@@ -1,29 +1,17 @@
 ﻿using Application.Dto;
+using AutoMapper;
+using Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Application.Features.Services.GetServices;
 
-internal class GetServicesQueryHandler : IRequestHandler<GetServicesQuery, IEnumerable<Service>>
+internal class GetServicesQueryHandler(IServicesRepository repository, IMapper mapper)
+    : IRequestHandler<GetServicesQuery, IEnumerable<Service>>
 {
-    public Task<IEnumerable<Service>> Handle(GetServicesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Service>> Handle(GetServicesQuery request, CancellationToken cancellationToken)
     {
-        return Task.Run<IEnumerable<Service>>(() =>
-        [
-            new Service
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service1"
-            },
-            new Service
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service2"
-            },
-            new Service
-            {
-                Id = Guid.NewGuid(),
-                Name = "Service3"
-            }
-        ], cancellationToken);
+        var services = await repository.GetAll();
+        var dtoServices = mapper.Map<IEnumerable<Service>>(services);
+        return dtoServices;
     }
 }

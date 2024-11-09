@@ -1,18 +1,17 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Infrastructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.Repositories
+namespace Infrastructure.Persistence.Repositories;
+
+internal abstract class GenericRepository<T>(CloudSalesDbContext dbContext) : IGenericRepository<T>
+    where T : BaseRecord
 {
-    internal class GenericRepository<T> : IGenericRepository<T> where T : BaseRecord
+    protected readonly CloudSalesDbContext DbContext = dbContext;
+
+    public virtual async Task<IEnumerable<T>> GetAll()
     {
-        public virtual Task<IEnumerable<T>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        return await DbContext.Set<T>().ToListAsync();
     }
 }

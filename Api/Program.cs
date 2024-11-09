@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    SeedDbData(app);
 }
 
 app.UseHttpsRedirection();
@@ -28,3 +30,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+return;
+
+static void SeedDbData(WebApplication webApplication)
+{
+    using var scope = webApplication.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<CloudSalesDbContext>();
+    if (dbContext.Database.EnsureCreated()) DbSeeder.Seed(dbContext);
+}

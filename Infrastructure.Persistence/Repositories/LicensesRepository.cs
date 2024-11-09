@@ -4,5 +4,5 @@ using Infrastructure.Persistence.Contexts;
 
 namespace Infrastructure.Persistence.Repositories;
 
-internal class AccountsRepository(CloudSalesDbContext cloudSalesDbContext)
-    : GenericRepository<Account>(cloudSalesDbContext), IAccountsRepository;
+internal class LicensesRepository(CloudSalesDbContext cloudSalesDbContext)
+    : GenericRepository<License>(cloudSalesDbContext), ILicensesRepository;

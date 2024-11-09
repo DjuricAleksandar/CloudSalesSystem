@@ -2,6 +2,4 @@
 
 namespace Domain.Interfaces.Repositories;
 
-public interface IAccountsRepository : IGenericRepository<Account>
-{
-}
+public interface IAccountsRepository : IGenericRepository<Account>;

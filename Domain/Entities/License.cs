@@ -9,4 +9,7 @@ public record License : BaseRecord
     public Guid AccountId { get; set; }
     public States State { get; set; }
     public DateOnly ValidTo { get; set; }
+
+    public Service? Service { get; set; }
+    public Account? Account { get; set; }
 }
