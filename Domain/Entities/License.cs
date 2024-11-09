@@ -2,7 +2,7 @@
 
 namespace Domain.Entities;
 
-public record License
+public record License : BaseRecord
 {
     public Guid Id { get; set; }
     public Guid ServiceId { get; set; }

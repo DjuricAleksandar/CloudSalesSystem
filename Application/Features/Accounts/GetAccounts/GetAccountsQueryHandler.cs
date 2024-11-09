@@ -1,29 +1,17 @@
 ﻿using Application.Dto;
+using AutoMapper;
+using Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Application.Features.Accounts.GetAccounts;
 
-internal class GetAccountsQueryHandler : IRequestHandler<GetAccountsQuery, IEnumerable<Account>>
+internal class GetAccountsQueryHandler(IAccountsRepository repository, IMapper mapper)
+    : IRequestHandler<GetAccountsQuery, IEnumerable<Account>>
 {
-    public Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Account>> Handle(GetAccountsQuery request, CancellationToken cancellationToken)
     {
-        return Task.Run<IEnumerable<Account>>(() =>
-        [
-            new Account
-            {
-                Id = Guid.NewGuid(),
-                Name = "Account1"
-            },
-            new Account
-            {
-                Id = Guid.NewGuid(),
-                Name = "Account2"
-            },
-            new Account
-            {
-                Id = Guid.NewGuid(),
-                Name = "Account3"
-            }
-        ], cancellationToken);
+        var accounts = await repository.GetAll();
+        var dtoAccounts = mapper.Map<IEnumerable<Account>>(accounts);
+        return dtoAccounts;
     }
 }
