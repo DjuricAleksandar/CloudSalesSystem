@@ -2,9 +2,9 @@
 using Application.Dto;
 using MediatR;
 
-namespace Application.Features.Licences.AcquireLicence;
+namespace Application.Features.Licenses.AcquireLicense;
 
-public record AcquireLicenceCommand : IRequest<Licence>
+public record AcquireLicenseCommand : IRequest<License>
 {
     [Required]
     public Guid AccountId { get; set; }

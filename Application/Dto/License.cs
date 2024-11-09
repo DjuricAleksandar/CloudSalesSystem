@@ -2,7 +2,7 @@
 
 namespace Application.Dto;
 
-public record Licence
+public record License
 {
     public Guid Id { get; set; }
     public Guid ServiceId { get; set; }

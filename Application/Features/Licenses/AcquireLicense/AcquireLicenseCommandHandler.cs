@@ -2,13 +2,13 @@
 using Application.Enums;
 using MediatR;
 
-namespace Application.Features.Licences.AcquireLicence;
+namespace Application.Features.Licenses.AcquireLicense;
 
-internal class AcquireLicenceCommandHandler : IRequestHandler<AcquireLicenceCommand, Licence>
+internal class AcquireLicenseCommandHandler : IRequestHandler<AcquireLicenseCommand, License>
 {
-    public async Task<Licence> Handle(AcquireLicenceCommand request, CancellationToken cancellationToken)
+    public async Task<License> Handle(AcquireLicenseCommand request, CancellationToken cancellationToken)
     {
-        return await Task.Run(() => new Licence
+        return await Task.Run(() => new License
         {
             Id = Guid.NewGuid(),
             AccountId = request.AccountId,

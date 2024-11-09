@@ -33,7 +33,7 @@ public class ServicesController : BaseApiController
     [HttpPost("[action]")]
     public async Task<IActionResult> Cancel([Required] Guid serviceId)
     {
-        return Ok(await Task.Run(() => new List<Licence>
+        return Ok(await Task.Run(() => new List<License>
         {
             new()
             {
