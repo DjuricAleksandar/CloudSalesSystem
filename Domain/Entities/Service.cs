@@ -5,5 +5,5 @@ public record Service : BaseRecord
     public Guid Id { get; set; }
     public string? Name { get; set; }
 
-    public IEnumerable<License> Licenses { get; set; } = new List<License>();
+    public IEnumerable<License> Licenses { get; set; } = (List<License>) [];
 }

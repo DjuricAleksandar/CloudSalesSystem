@@ -5,7 +5,6 @@ namespace Infrastructure.Persistence.Contexts;
 
 public class CloudSalesDbContext(DbContextOptions<CloudSalesDbContext> options) : DbContext(options)
 {
-    public DbSet<Service> Services { get; set; }
     public DbSet<License> Licenses { get; set; }
     public DbSet<Account> Accounts { get; set; }
 
@@ -21,11 +20,6 @@ public class CloudSalesDbContext(DbContextOptions<CloudSalesDbContext> options) 
 
         modelBuilder.Entity<Account>()
             .HasKey(a => a.Id);
-
-        modelBuilder.Entity<License>()
-            .HasOne(l => l.Service)
-            .WithMany(s => s.Licenses)
-            .HasForeignKey(l => l.ServiceId);
 
         modelBuilder.Entity<License>()
             .HasOne(l => l.Account)

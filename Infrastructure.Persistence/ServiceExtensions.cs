@@ -12,7 +12,6 @@ public static class ServiceExtensions
     {
         services.AddDbContext<CloudSalesDbContext>(o => o.UseInMemoryDatabase("CloudSalesDb"));
         services.AddTransient<IAccountsRepository, AccountsRepository>();
-        services.AddTransient<IServicesRepository, ServicesRepository>();
         services.AddTransient<ILicensesRepository, LicensesRepository>();
     }
 }
