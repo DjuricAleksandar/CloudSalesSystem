@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{2C34E760-8AEA-4E48-968F-2FF4D496EF6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{2C34E760-8AEA-4E48-968F-2FF4D496EF6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FACF0ADF-32AB-49DD-8B05-F0FCEF29FE89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{FACF0ADF-32AB-49DD-8B05-F0FCEF29FE89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Persistence", "Infrastructure.Persistence\Infrastructure.Persistence.csproj", "{167AB476-F347-4FDE-AB00-6A89E70FF8E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Persistence", "Infrastructure.Persistence\Infrastructure.Persistence.csproj", "{167AB476-F347-4FDE-AB00-6A89E70FF8E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Services", "Infrastructure.Services\Infrastructure.Services.csproj", "{4D62A2E4-990E-4934-828F-042609A698D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Services", "Infrastructure.Services\Infrastructure.Services.csproj", "{4D62A2E4-990E-4934-828F-042609A698D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{BE40AE29-DFAC-4571-8FCF-A85FA4612FC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{BE40AE29-DFAC-4571-8FCF-A85FA4612FC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BFE7AFAD-8BA7-456A-B8DF-688475FA7624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{1B784277-9F86-41E7-9B67-DF0031BEFED1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{BE40AE29-DFAC-4571-8FCF-A85FA4612FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE40AE29-DFAC-4571-8FCF-A85FA4612FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE40AE29-DFAC-4571-8FCF-A85FA4612FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B784277-9F86-41E7-9B67-DF0031BEFED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B784277-9F86-41E7-9B67-DF0031BEFED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B784277-9F86-41E7-9B67-DF0031BEFED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B784277-9F86-41E7-9B67-DF0031BEFED1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1B784277-9F86-41E7-9B67-DF0031BEFED1} = {BFE7AFAD-8BA7-456A-B8DF-688475FA7624}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8A180C3-8E76-4334-B262-14D4D552810F}
